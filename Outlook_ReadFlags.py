@@ -2,6 +2,7 @@
 import os
 import argparse
 import logging
+import win32com.client
 
 # Import from modules
 from MyFunctions import initialise_app, finalise_app, handle_exception
@@ -37,5 +38,12 @@ logger = logging.getLogger("my_logger")
 ##################################################
 # Main
 ##################################################
+app = win32com.client.Dispatch("Outlook.Application")
+my_namespace = app.GetNamespace("MAPI")
+
+my_folder = my_namespace.GetDefaultFolder(28) #28 for olFolderToDo
+with open("data/output.txt", 'w') as writer:
+    for item in my_folder.Items:
+        writer.write(item.EntryID + "," + item.Subject + "\n")
 
 finalise_app()
