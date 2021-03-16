@@ -44,6 +44,6 @@ my_namespace = app.GetNamespace("MAPI")
 my_folder = my_namespace.GetDefaultFolder(28) #28 for olFolderToDo
 with open("data/output.txt", 'w') as writer:
     for item in my_folder.Items:
-        writer.write(item.EntryID + "," + item.Subject + "\n")
+        writer.write(f"{item.EntryID},{item.Subject}\n")
 
 finalise_app()
